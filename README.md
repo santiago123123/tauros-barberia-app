@@ -37,82 +37,102 @@ TaurosBarber/
 ├── app.json             # Manifiesto de Expo
 ├── index.js             # Registro de entrada
 └── package.json         # Dependencias
+```
+## 🚀 Pasos de Instalación (Terminal)
 
-Pasos de Instalación (Terminal)
-
-# 1. Base del proyecto
+### 1. Base del proyecto
 npx create-expo-app tauros-barberia
 cd tauros-barberia
 
-# 2. Navegación y Pantallas Seguras
+### 2. Navegación y Pantallas Seguras
 npm install @react-navigation/native @react-navigation/stack
 npx expo install react-native-screens react-native-safe-area-context
 
-# 3. Base de Datos y Sesión (Incluye Polyfill)
+### 3. Base de Datos y Sesión (Incluye Polyfill)
 npm install @supabase/supabase-js @react-native-async-storage/async-storage react-native-url-polyfill
 
-# 4. Selectores, Calendarios y Relojes
+### 4. Selectores, Calendarios y Relojes
 npx expo install @react-native-picker/picker @react-native-community/datetimepicker
 
-# 5. Estética e Iconos
+### 5. Estética e Iconos
 npx expo install @expo/vector-icons expo-status-bar
 
-Tabla: Barberos
-COLUMNA,TIPO,DESCRIPCIÓN
-identificación,UUID,Clave Primaria (PK)
-nombre,text,Nombre del barbero
-activo,boolean,Si aparece en la app
+## 🔑 ACCESO ADMINISTRATIVO (Credenciales)
 
-Tabla: horarios
-Columna,Tipo,Descripción
-id,int8,PK Autoincremental
-barbero_id,FK,Relación con barberos
-hora_entrada,time,Inicio de jornada
-hora_salida,time,Fin de jornada
+> [!IMPORTANT]
+> Estas credenciales son necesarias para acceder a los paneles de gestión de barberos, citas y horarios.
 
-Tabla: citas
-COLUMNA,TIPO,DESCRIPCIÓN
-id,int8,PK Autoincremental
-barbero_id,FK,Relación con barberos
-cliente_nombre,text,Nombre de quien reserva
-contacto,text,Teléfono del cliente
-fecha,date,Día de la reserva
-hora_inicio,time,Slot seleccionado
-hora_fin,time,Fin de cita (+30 min)
+| ROL  | CONTRASEÑA |
+| :--- | :--- |
+| **Admin** | `1234` |
+---
 
-Tabla: sillas
-COLUMNA,TIPO,DESCRIPCIÓN
-identificación,int8,PK Identificador de silla
-nombre,text,Nombre de la estación
+## 📊 Configuración de Base de Datos (4 Tablas)
 
-Características Implementadas
+### Tabla: `barberos`
 
-🕒 Sistema de Turnos Inteligente
-Validación de Horarios: Bloqueo automático de horas pasadas en el día actual.
+| COLUMNA | TIPO | DESCRIPCIÓN |
+| :--- | :--- | :--- |
+| identificación | UUID | Clave Primaria (PK) |
+| nombre | text | Nombre del barbero |
+| activo | boolean | Si aparece en la app |
 
-Cálculo de Citas: Se calcula automáticamente el fin de la cita (30 min después).
+### Tabla: `horarios`
 
-🛡️ Seguridad y Administración
-Logout por Inactividad: El AppNavigator detecta falta de movimiento y cierra sesión.
+| COLUMNA | TIPO | DESCRIPCIÓN |
+| :--- | :--- | :--- |
+| id | int8 | PK Autoincremental |
+| barbero_id | FK | Relación con barberos |
+| hora_entrada | time | Inicio de jornada |
+| hora_salida | time | Fin de jornada |
 
-Acceso Protegido: Lógica de navegación que separa vistas de cliente y admin.
+### Tabla: `citas`
 
-🔄 Gestión de Datos en Tiempo Real
-Status de Barbero: Etiquetas de "Disponible" u "Ocupado" en tiempo real.
+| COLUMNA | TIPO | DESCRIPCIÓN |
+| :--- | :--- | :--- |
+| id | int8 | PK Autoincremental |
+| barbero_id | FK | Relación con barberos |
+| cliente_nombre | text | Nombre de quien reserva |
+| contacto | text | Teléfono del cliente |
 
-Persistencia: Uso de AsyncStorage para mantener la sesión iniciada.
+### Tabla: `sillas`
 
-🎨 Diseño Premium (UI/UX)
+| COLUMNA | TIPO | DESCRIPCIÓN |
+| :--- | :--- | :--- |
+| identificación | int8 | PK Identificador de silla |
+| nombre | text | Nombre de la estación |
+
+## ✨ Características Implementadas
+
+### 🕒 Sistema de Turnos Inteligente
+Validación de Horarios: Bloqueo automático de horas pasadas.
+
+Cálculo de Citas: Fin de cita automático (+30 min).
+
+### 🛡️ Seguridad y Administración
+Logout por Inactividad: Detección automática en AppNavigator.
+
+Acceso Protegido: Separación de vistas Cliente/Admin.
+
+### 🔄 Gestión en Tiempo Real
+Status de Barbero: Indicadores de "Disponible" u "Ocupado".
+
+Persistencia: Sesión guardada con AsyncStorage.
+
+### 🎨 Diseño Premium (UI/UX)
 Dark Mode: Fondo #1A1A1B con acentos en dorado #C5A059.
 
-Navegación Limpia: Uso de CommonActions.reset para evitar duplicidad de pantallas.
+Navegación Limpia: Reseteo de rutas con CommonActions.reset.
 
-Requisitos Técnicos Finales
-
+## 🛠️ Requisitos Técnicos Finales
 React Native / Expo SDK 54
 
-React Navigation Stack para flujo lineal.
+React Navigation Stack
 
-Supabase Real-time para la base de datos.
+Supabase Real-time
 
-DateTimePicker para la gestión precisa de horarios.
+DateTimePicker nativo
+
+
+
+
